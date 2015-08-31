@@ -21,6 +21,7 @@ var indexHtmlPath = path.join(__dirname, '../index.html');
 // When our server gets a request and the url matches
 // something in our public folder, serve up that file
 // e.g. angular.js, style.css
+app.use('/bower_components', express.static(path.join(__dirname, '../bower_components')));
 app.use(express.static(publicPath));
 
 app.use(bodyParser.json());
@@ -79,4 +80,3 @@ app.put('/cards/:id', function (req, res, next) {
     })
     .then(null, next);
 });
-
