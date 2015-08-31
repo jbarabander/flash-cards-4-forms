@@ -41,10 +41,25 @@ app.factory('FlashCardsFactory', function ($http, currentFlashCards) {
       return response.data;
     });
   }
+  function findFlashCard(cardId) {
+    console.log(cardId);
+    return $http.get("/cards/", {params: {id: cardId}}).then(function(response) {
+      return response.data;
+    });
+  }
+  function deleteCard(cardId){
+    return $http.delete("/cards/", {params: {id: cardId}}).then(function(response) {
+      return response.status;
+    });
+  }
   return {
     getFlashCards: getFlashCards,
     createCard: createFlashCard,
     updateCard: updateFlashCard,
-    categories: categories
+    categories: categories,
+    findFlashCard: findFlashCard,
+    deleteCard: deleteCard
   };
+
+
 });

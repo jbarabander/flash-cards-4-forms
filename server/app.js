@@ -45,6 +45,9 @@ app.get('/cards', function (req, res) {
     	modelParams.category = req.query.category;
     }
 
+    if(req.query.id) {
+        modelParams._id = req.query.id;
+    }
     FlashCardModel.find(modelParams, function (err, cards) {
         setTimeout(function () {
             res.send(cards);
@@ -59,6 +62,12 @@ app.post('/cards', function (req, res, next) {
         res.json(newCard);
     })
     .then(null, next);
+});
+
+app.delete("/cards/", function(req, res, next) {
+    FlashCardModel.find({_id: req.query.id}).remove().exec().then(function() {
+        res.sendStatus(200)
+    }).then(null, next);
 });
 
 app.put('/cards/:id', function (req, res, next) {
